@@ -74,7 +74,6 @@ fn test_exhaust_token() {
 
     for i in 48..51 {
         println!("testings with {} addresses", i);
-        env.cost_estimate().budget().reset_default();
         
         let mut addresses = Vec::new(&env);
         for _ in 0..i {
@@ -90,6 +89,8 @@ fn test_exhaust_token() {
                 destination: address.clone(),
             });
         }
+
+        env.cost_estimate().budget().reset_default();
     
         let result = client.batch_transfer(&faucet, &payments);
         assert_eq!(result.len(), i);
